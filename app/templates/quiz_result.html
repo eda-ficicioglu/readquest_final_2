@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+
+{% block title %}Your Book Type Result{% endblock %}
+
+{% block content %}
+    <h1>Your Top Reader Types</h1>
+
+    {% if top_types %}
+        <h2>Tebrikler, sizin en baskın okuyucu tipiniz: <strong>{{ top_types[0][0] }}</strong></h2>
+        <p><em>{{ top_type_description }}</em></p> {# YENİ: Açıklama burada gösterilecek #}
+        <hr>
+    {% endif %}
+
+    <ul>
+        {% for reader_type, score in top_types %}
+            <li><strong>{{ reader_type }}</strong> - Score: {{ score }}</li>
+        {% endfor %}
+    </ul>
+
+    <p>Would you like to see book recommendations for your top type?</p>
+    {% if top_types %}
+        <a href="{{ url_for('main.recommendations', type=top_types[0][0]) }}">Yes, show me books!</a>
+    {% endif %}
+{% endblock %}
